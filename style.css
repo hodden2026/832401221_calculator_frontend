@@ -1,0 +1,983 @@
+/* =========================
+   全局变量
+   ========================= */
+
+:root {
+    --background: #f3f4f6;
+    --card-background: #ffffff;
+
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+
+    --border: #e5e7eb;
+
+    --display-background: #111827;
+    --display-text: #ffffff;
+    --display-secondary: #9ca3af;
+
+    --button-background: #e5e7eb;
+    --button-hover: #d1d5db;
+
+    --operator-background: #dbeafe;
+    --operator-text: #1d4ed8;
+
+    --equals-background: #2563eb;
+    --equals-text: #ffffff;
+
+    --danger-background: #fee2e2;
+    --danger-text: #b91c1c;
+
+    --success-background: #dcfce7;
+    --success-text: #15803d;
+
+    --warning-background: #fef3c7;
+    --warning-text: #a16207;
+
+    --shadow:
+        0 8px 24px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   深色主题
+   ========================= */
+
+body.dark-theme {
+    --background: #111827;
+    --card-background: #1f2937;
+
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+
+    --border: #374151;
+
+    --display-background: #030712;
+    --display-text: #ffffff;
+    --display-secondary: #9ca3af;
+
+    --button-background: #374151;
+    --button-hover: #4b5563;
+
+    --operator-background: #1e3a8a;
+    --operator-text: #dbeafe;
+
+    --danger-background: #7f1d1d;
+    --danger-text: #fecaca;
+
+    --shadow:
+        0 8px 28px
+        rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   基础
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    min-height: 100%;
+}
+
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        "Microsoft YaHei",
+        sans-serif;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text-primary);
+
+    transition:
+        background 0.2s,
+        color 0.2s;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =========================
+   页面顶部
+   ========================= */
+
+.top-bar {
+    width:
+        min(1100px, 92%);
+
+    margin:
+        32px auto 0;
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+}
+
+
+.top-bar h1 {
+    margin:
+        0;
+
+    font-size:
+        30px;
+}
+
+
+.top-bar p {
+    margin:
+        6px 0 0;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        14px;
+}
+
+
+.theme-toggle-button {
+    flex-shrink:
+        0;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    padding:
+        10px 14px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--card-background);
+
+    color:
+        var(--text-primary);
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s;
+}
+
+
+.theme-toggle-button:hover {
+    transform:
+        translateY(-1px);
+
+    opacity:
+        0.9;
+}
+
+
+/* =========================
+   主布局
+   ========================= */
+
+.page-container {
+    width:
+        min(1100px, 92%);
+
+    margin:
+        24px auto 40px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap:
+        24px;
+
+    align-items:
+        start;
+}
+
+
+/* =========================
+   卡片
+   ========================= */
+
+.calculator-card,
+.history-card {
+    background:
+        var(--card-background);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        18px;
+
+    padding:
+        24px;
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.section-title {
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        space-between;
+
+    gap:
+        16px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.section-title h2,
+.history-header h2 {
+    margin:
+        0;
+
+    font-size:
+        22px;
+}
+
+
+.section-title p,
+.history-header p {
+    margin:
+        6px 0 0;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        13px;
+}
+
+
+/* =========================
+   后端状态
+   ========================= */
+
+.status-badge {
+    flex-shrink:
+        0;
+
+    padding:
+        6px 10px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--warning-background);
+
+    color:
+        var(--warning-text);
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+}
+
+
+.status-badge.online {
+    background:
+        var(--success-background);
+
+    color:
+        var(--success-text);
+}
+
+
+.status-badge.offline {
+    background:
+        var(--danger-background);
+
+    color:
+        var(--danger-text);
+}
+
+
+/* =========================
+   计算显示区
+   ========================= */
+
+.display {
+    min-height:
+        150px;
+
+    padding:
+        16px;
+
+    margin-bottom:
+        12px;
+
+    border-radius:
+        14px;
+
+    background:
+        var(--display-background);
+
+    color:
+        var(--display-text);
+
+    text-align:
+        right;
+
+    overflow:
+        hidden;
+}
+
+
+.display-label {
+    margin-bottom:
+        4px;
+
+    color:
+        var(--display-secondary);
+
+    font-size:
+        11px;
+
+    text-align:
+        left;
+
+    text-transform:
+        uppercase;
+}
+
+
+.result-label {
+    margin-top:
+        16px;
+}
+
+
+.expression-display {
+    min-height:
+        32px;
+
+    font-size:
+        20px;
+
+    color:
+        var(--display-secondary);
+
+    overflow-wrap:
+        anywhere;
+}
+
+
+.result-display {
+    min-height:
+        46px;
+
+    margin-top:
+        2px;
+
+    font-size:
+        38px;
+
+    font-weight:
+        bold;
+
+    overflow-wrap:
+        anywhere;
+}
+
+
+/* =========================
+   错误信息
+   ========================= */
+
+.error-message {
+    min-height:
+        24px;
+
+    margin-bottom:
+        12px;
+
+    color:
+        #dc2626;
+
+    font-size:
+        14px;
+
+    text-align:
+        center;
+}
+
+
+/* =========================
+   计算器按钮
+   ========================= */
+
+.calculator-buttons {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        10px;
+}
+
+
+.calculator-buttons button {
+    min-height:
+        58px;
+
+    border:
+        none;
+
+    border-radius:
+        11px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--button-background);
+
+    color:
+        var(--text-primary);
+
+    font-size:
+        20px;
+
+    transition:
+        transform 0.1s,
+        background 0.15s,
+        opacity 0.15s;
+}
+
+
+.calculator-buttons button:hover {
+    background:
+        var(--button-hover);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.calculator-buttons button:active {
+    transform:
+        translateY(1px);
+}
+
+
+.operator-button {
+    background:
+        var(--operator-background)
+        !important;
+
+    color:
+        var(--operator-text)
+        !important;
+
+    font-weight:
+        bold;
+}
+
+
+.equals-button {
+    background:
+        var(--equals-background)
+        !important;
+
+    color:
+        var(--equals-text)
+        !important;
+
+    font-weight:
+        bold;
+}
+
+
+.control-button {
+    font-size:
+        17px !important;
+
+    font-weight:
+        bold;
+}
+
+
+/* =========================
+   键盘说明
+   ========================= */
+
+.keyboard-help {
+    margin-top:
+        18px;
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px 14px;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+}
+
+
+/* =========================
+   历史顶部
+   ========================= */
+
+.history-header {
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        space-between;
+
+    gap:
+        16px;
+
+    margin-bottom:
+        16px;
+}
+
+
+.history-actions {
+    display:
+        flex;
+
+    gap:
+        8px;
+}
+
+
+.secondary-button,
+.danger-outline-button {
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        8px;
+
+    padding:
+        8px 11px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--card-background);
+
+    color:
+        var(--text-primary);
+
+    font-size:
+        13px;
+}
+
+
+.secondary-button:hover,
+.danger-outline-button:hover {
+    opacity:
+        0.8;
+}
+
+
+.danger-outline-button {
+    border-color:
+        #ef4444;
+
+    color:
+        #dc2626;
+}
+
+
+/* =========================
+   搜索
+   ========================= */
+
+.history-search {
+    margin-bottom:
+        16px;
+}
+
+
+.history-search input {
+    width:
+        100%;
+
+    padding:
+        11px 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        9px;
+
+    outline:
+        none;
+
+    background:
+        var(--card-background);
+
+    color:
+        var(--text-primary);
+
+    font-size:
+        14px;
+
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+}
+
+
+.history-search input:focus {
+    border-color:
+        #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================
+   历史列表
+   ========================= */
+
+.history-list {
+    max-height:
+        600px;
+
+    overflow-y:
+        auto;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+
+    padding-right:
+        2px;
+}
+
+
+.empty-message {
+    padding:
+        30px 12px;
+
+    text-align:
+        center;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        14px;
+}
+
+
+/* =========================
+   单条历史
+   ========================= */
+
+.history-item {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        12px;
+
+    padding:
+        14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--background);
+
+    transition:
+        transform 0.12s,
+        border-color 0.12s;
+}
+
+
+.history-item:hover {
+    transform:
+        translateY(-1px);
+
+    border-color:
+        #93c5fd;
+}
+
+
+.history-content {
+    flex:
+        1;
+
+    min-width:
+        0;
+}
+
+
+.history-expression {
+    font-size:
+        16px;
+
+    font-weight:
+        bold;
+
+    overflow-wrap:
+        anywhere;
+}
+
+
+.history-result {
+    margin-top:
+        5px;
+
+    font-size:
+        21px;
+
+    font-weight:
+        bold;
+}
+
+
+.history-meta {
+    margin-top:
+        7px;
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        6px 12px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        11px;
+}
+
+
+.delete-history-button {
+    flex-shrink:
+        0;
+
+    border:
+        none;
+
+    border-radius:
+        8px;
+
+    padding:
+        8px 11px;
+
+    cursor:
+        pointer;
+
+    background:
+        var(--danger-background);
+
+    color:
+        var(--danger-text);
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+}
+
+
+.delete-history-button:hover {
+    opacity:
+        0.8;
+}
+
+
+/* =========================
+   页脚
+   ========================= */
+
+.page-footer {
+    width:
+        min(1100px, 92%);
+
+    margin:
+        0 auto 30px;
+
+    color:
+        var(--text-secondary);
+
+    text-align:
+        center;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+}
+
+
+.page-footer p {
+    margin:
+        2px 0;
+}
+
+
+/* =========================
+   响应式
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .top-bar {
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .page-container {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .theme-toggle-button {
+        align-self:
+            flex-end;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .top-bar h1 {
+        font-size:
+            24px;
+    }
+
+
+    .calculator-card,
+    .history-card {
+        padding:
+            16px;
+    }
+
+
+    .calculator-buttons button {
+        min-height:
+            52px;
+
+        font-size:
+            18px;
+    }
+
+
+    .history-header {
+        flex-direction:
+            column;
+    }
+
+
+    .history-actions {
+        width:
+            100%;
+    }
+
+
+    .history-actions button {
+        flex:
+            1;
+    }
+
+
+    .history-item {
+        align-items:
+            flex-start;
+    }
+
+}

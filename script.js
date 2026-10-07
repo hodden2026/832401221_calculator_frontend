@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL =
+    "https://832401221calculatorbackend-production.up.railway.app";
 
 
 const expressionDisplay =
@@ -77,7 +78,9 @@ function appendValue(value) {
     clearError();
 
     if (expression.length >= 200) {
-        showError("表达式过长，最多允许 200 个字符");
+        showError(
+            "表达式过长，最多允许 200 个字符"
+        );
         return;
     }
 
@@ -109,7 +112,7 @@ function backspace() {
 
 
 /* =========================
-   后端状态检查
+   后端状态
    ========================= */
 
 async function checkBackendStatus() {
@@ -337,7 +340,10 @@ async function clearAllHistory() {
     clearError();
 
     if (historyCache.length === 0) {
-        showError("当前没有可以清空的历史记录");
+        showError(
+            "当前没有可以清空的历史记录"
+        );
+
         return;
     }
 
